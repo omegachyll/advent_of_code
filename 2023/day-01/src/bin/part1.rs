@@ -1,35 +1,28 @@
-use std::result::Result;
 use std::error::Error;
 use std::fs;
+use std::result::Result;
 
-fn process(
-    input: &str,
-) -> Result<String, Box<dyn Error>> {
-
+fn process(input: &str) -> Result<String, Box<dyn Error>> {
     let output = input
         .lines()
         .map(|line| {
-            let mut it =
-                line.chars().filter_map(|character| {
-                    character.to_digit(10)
-                });
+            let mut it = line.chars().filter_map(|character| character.to_digit(10));
 
-            let first =
-            it.next().expect("should be a number");
-            
+            let first = it.next().expect("should be a number");
+
             match it.last() {
                 Some(num) => format!("{first}{num}"),
-                None => format!("{first}{first}")
+                None => format!("{first}{first}"),
             }
-                .parse::<u32>()
-                .expect("should be a number")
+            .parse::<u32>()
+            .expect("should be a number")
         })
         .sum::<u32>();
     Ok(output.to_string())
 }
 
 #[cfg(test)]
-mod tests{
+mod tests {
     use super::*;
 
     #[test]
@@ -44,8 +37,7 @@ treb7uchet";
 }
 
 fn main() {
-    let input = fs::read_to_string("input1.txt")
-        .expect("should be string");
+    let input = fs::read_to_string("input1.txt").expect("should be string");
     // println!("{}", input.as_str())
     println!("{:?}", process(input.as_str()).expect("should be a string"))
 }

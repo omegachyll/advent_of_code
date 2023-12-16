@@ -210,8 +210,6 @@ fn process(input: &str) -> Result<String, Box<dyn Error>> {
         }
     }
 
-    let valid_chars: Vec<char> = vec!['L', 'J', '-'];
-
     let result: usize = input
         .lines()
         .enumerate()
